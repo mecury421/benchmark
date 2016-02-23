@@ -1,6 +1,8 @@
 cmake_minimum_required (VERSION 2.8.11)
 project (benchmark)
 
+cmake_policy(SET CMP0054 OLD)
+
 option(BENCHMARK_ENABLE_TESTING "Enable testing of the benchmark library." ON)
 option(BENCHMARK_ENABLE_LTO "Enable link time optimisation of the benchmark library." OFF)
 # Make sure we can import out CMake functions
