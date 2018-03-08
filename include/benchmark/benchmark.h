@@ -203,11 +203,13 @@ BENCHMARK(BM_test)->Unit(benchmark::kMillisecond);
 #if defined(__GNUC__)
 #define BENCHMARK_UNUSED __attribute__((unused))
 #define BENCHMARK_ALWAYS_INLINE __attribute__((always_inline))
+#define BENCHMARK_ALWAYS_INLINE_EXT __attribute__((always_inline)) inline
 #define BENCHMARK_NOEXCEPT noexcept
 #define BENCHMARK_NOEXCEPT_OP(x) noexcept(x)
 #elif defined(_MSC_VER) && !defined(__clang__)
 #define BENCHMARK_UNUSED
 #define BENCHMARK_ALWAYS_INLINE __forceinline
+#define BENCHMARK_ALWAYS_INLINE_EXT __forceinline
 #if _MSC_VER >= 1900
 #define BENCHMARK_NOEXCEPT noexcept
 #define BENCHMARK_NOEXCEPT_OP(x) noexcept(x)
@@ -219,6 +221,7 @@ BENCHMARK(BM_test)->Unit(benchmark::kMillisecond);
 #else
 #define BENCHMARK_UNUSED
 #define BENCHMARK_ALWAYS_INLINE
+#define BENCHMARK_ALWAYS_INLINE_EXT
 #define BENCHMARK_NOEXCEPT
 #define BENCHMARK_NOEXCEPT_OP(x)
 #endif
@@ -642,10 +645,10 @@ struct State::StateIterator {
   State* const parent_;
 };
 
-BENCHMARK_ALWAYS_INLINE inline State::StateIterator State::begin() {
+BENCHMARK_ALWAYS_INLINE_EXT State::StateIterator State::begin() {
   return StateIterator(this);
 }
-BENCHMARK_ALWAYS_INLINE inline State::StateIterator State::end() {
+BENCHMARK_ALWAYS_INLINE_EXT State::StateIterator State::end() {
   StartKeepRunning();
   return StateIterator();
 }
